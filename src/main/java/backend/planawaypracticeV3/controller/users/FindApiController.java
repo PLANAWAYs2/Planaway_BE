@@ -1,4 +1,4 @@
-package backend.planawaypracticeV3.controller;
+package backend.planawaypracticeV3.controller.users;
 
 import backend.planawaypracticeV3.dto.mail.EmailDto;
 import backend.planawaypracticeV3.dto.mail.NewPasswordDto;
@@ -87,6 +87,7 @@ public class FindApiController {
         return ResponseEntity.badRequest().body(new MessageResponse("잘못된 인증번호입니다."));
     }
 
+    // (3) 새 비밀번호 설정
     @PostMapping("/findpw/newpw")
     public ResponseEntity<?> newPassword(@RequestBody NewPasswordDto newPasswordDto){
 

@@ -2,16 +2,14 @@ package backend.planawaypracticeV3.service;
 
 import backend.planawaypracticeV3.domain.User;
 import backend.planawaypracticeV3.dto.mail.NewPasswordDto;
+import backend.planawaypracticeV3.dto.request.UserInfoRequest;
 import backend.planawaypracticeV3.dto.request.SignupRequest;
-import backend.planawaypracticeV3.dto.response.MessageResponse;
 import backend.planawaypracticeV3.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -49,22 +47,28 @@ public class SignupService {
 
         return true;
     }
-/*    public boolean updateNewPw(NewPasswordDto newPasswordDto){
 
-        Optional<User> finduser = userRepository.findByEmail(newPasswordDto.getEmail());
+    // 프로필 수정
+    @Transactional
+    public boolean updateUserInfo(String userId, UserInfoRequest userInfoRequest){
 
-        if(finduser.isEmpty()){
+        Optional<User> findUser = userRepository.findByUserId(userId);
+        if(findUser.isEmpty()){
             return false;
         }
 
-        User user = (finduser.get()).builder()
-                .password(passwordEncoder.encode(newPasswordDto.getNewPassword()))
-                .build();
+        User user = findUser.get();
 
-        userRepository.save(user);
+        // 회원 정보 수정
+        user.updateUserInfo(
+                userInfoRequest.getUsername(),
+                userInfoRequest.getUserId(),
+                userInfoRequest.getEmail(),
+                passwordEncoder.encode(userInfoRequest.getPassword()),
+                userInfoRequest.getPhone());
 
         return true;
-    }*/
+    }
 
 
 

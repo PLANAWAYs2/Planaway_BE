@@ -44,4 +44,13 @@ public class User {
     public void updatePassword(String newPassword) {
         this.password = newPassword;
     }
+
+
+    public void updateUserInfo(String username, String userId, String email, String password, String phone){
+        this.username = username;
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+    }
 }
