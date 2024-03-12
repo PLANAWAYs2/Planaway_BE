@@ -4,9 +4,7 @@ import backend.planawaypracticeV3.dto.mail.EmailDto;
 import backend.planawaypracticeV3.dto.mail.NewPasswordDto;
 import backend.planawaypracticeV3.dto.response.MessageResponse;
 import backend.planawaypracticeV3.service.EmailService;
-import backend.planawaypracticeV3.service.SignupService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
+import backend.planawaypracticeV3.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,7 @@ import java.util.Map;
 public class FindApiController {
 
     private final EmailService emailService;
-    private final SignupService signupService;
+    private final UserService userService;
 
     private Map<String, String> emailAuth = new HashMap<>();
 
@@ -95,7 +93,7 @@ public class FindApiController {
             return ResponseEntity.badRequest().body(new MessageResponse("비밀번호가 일치하지 않습니다."));
         }
 
-        boolean success = signupService.updatePassword(newPasswordDto);
+        boolean success = userService.updatePassword(newPasswordDto);
 
         if(!success){
             return ResponseEntity.badRequest().body(new MessageResponse("비밀번호 변경에 실패했습니다."));

@@ -16,6 +16,10 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
+    /**
+     * TODO: 프로필 사진 추가
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)

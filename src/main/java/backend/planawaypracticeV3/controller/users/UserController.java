@@ -8,7 +8,7 @@ import backend.planawaypracticeV3.dto.request.SignupRequest;
 import backend.planawaypracticeV3.dto.response.MessageResponse;
 import backend.planawaypracticeV3.dto.response.UserInfoResponse;
 import backend.planawaypracticeV3.repository.UserRepository;
-import backend.planawaypracticeV3.service.SignupService;
+import backend.planawaypracticeV3.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +30,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtils jwtTokenUtils;
-    private final SignupService signupService;
+    private final UserService userService;
 
     // 아이디 중복 확인 여부 변수
     private boolean isUserIdChecked = false;
@@ -54,7 +54,7 @@ public class UserController {
         }
 
         // 회원 저장
-        boolean success = signupService.save(signupRequest);
+        boolean success = userService.save(signupRequest);
 
         if(success){
             return ResponseEntity.ok(new MessageResponse("회원가입이 성공적으로 완료되었습니다."));
@@ -130,7 +130,7 @@ public class UserController {
             return ResponseEntity.badRequest().body(new MessageResponse("비밀번호가 일치하지 않습니다"));
         }
 
-        boolean success = signupService.updateUserInfo(userId, userInfoRequest);
+        boolean success = userService.updateUserInfo(userId, userInfoRequest);
 
         if(!success){
             return ResponseEntity.badRequest().body(new MessageResponse("회원 정보 수정에 실패했습니다."));
